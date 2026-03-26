@@ -110,7 +110,7 @@ git push origin main
    - **Name**: `inglou-api` (or any name)
    - **Environment**: `Node`
    - **Build Command**: `cd server && npm install`
-   - **Start Command**: `cd server && npm start`
+   - **Start Command**: ``cd server && npm start``
    - **Root Directory**: Leave empty (Render will auto-detect)
 
 ### 3.3 Set Environment Variables
