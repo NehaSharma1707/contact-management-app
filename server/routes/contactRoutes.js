@@ -16,6 +16,7 @@ router.post("/", async (req, res) => {
 
     res.status(201).json(savedContact);
   } catch (error) {
+    console.log("Error saving contact:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -26,6 +27,7 @@ router.get("/", async (req, res) => {
     const contacts = await Contact.find().sort({ createdAt: -1 });
     res.status(200).json(contacts);
   } catch (error) {
+    console.log("Error fetching contacts:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -47,9 +49,28 @@ router.put("/:id", async (req, res) => {
 
     res.status(200).json(updatedContact);
   } catch (error) {
+    console.log("Error updating contact:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
+
+// Delete contact
+router.delete("/:id", async (req, res) => {
+  try {
+    const deletedContact = await Contact.findByIdAndDelete(req.params.id);
+
+    if (!deletedContact) {
+      return res.status(404).json({ message: "Contact not found" });
+    }
+
+    res.status(200).json({ message: "Contact deleted" });
+  } catch (error) {
+    console.log("Error deleting contact:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+module.exports = router;
 
 // Delete contact
 router.delete("/:id", async (req, res) => {
